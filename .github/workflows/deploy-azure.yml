@@ -32,6 +32,8 @@ jobs:
           else
             echo "pronto=true" >> "$GITHUB_OUTPUT"
           fi
+          echo ${{ secrets.AZURE_WEBAPP_NAME }}
+          echo ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
 
       - name: Deploy no Azure Web App
         if: steps.secrets.outputs.pronto == 'true'
