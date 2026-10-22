@@ -25,6 +25,9 @@ jobs:
 
       - name: Checar secrets do Azure
         id: secrets
+        env:
+          AZURE_WEBAPP_NAME: ${{ secrets.AZURE_WEBAPP_NAME }}
+          AZURE_WEBAPP_PUBLISH_PROFILE: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
         run: |
           if [ -z "${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}" ] || [ -z "${{ secrets.AZURE_WEBAPP_NAME }}" ]; then
             echo "::warning::Secrets AZURE_WEBAPP_NAME / AZURE_WEBAPP_PUBLISH_PROFILE não configurados. Deploy pulado — veja DEPLOY_AZURE.md para configurar seu próprio Azure Web App."
