@@ -17,6 +17,7 @@ Rode com:  python agent.py
 """
 
 import json
+import logging
 import os
 import sys
 from typing import cast
@@ -31,6 +32,9 @@ from openai.types.chat import ChatCompletionMessageParam, ChatCompletionToolPara
 # ==========================================================================
 
 load_dotenv()
+
+logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s %(name)s: %(message)s")
+logger = logging.getLogger(__name__)
 
 RAIZ = Path(__file__).resolve().parent
 AGENT_MD = RAIZ / "agent.md"
@@ -51,11 +55,11 @@ def get_cliente() -> OpenAI:
     global _cliente
     if _cliente is None:
         chave = os.getenv("OPENAI_API_KEY")
-        print(f"Chave da OpenAI: {chave[:5]}...{chave[-5:]}")
         if not chave:
             raise RuntimeError(
                 "OPENAI_API_KEY não encontrada. Copie .env.example para .env e coloque sua chave."
             )
+        logger.info("Chave da OpenAI: %s...%s", chave[:5], chave[-5:])
         _cliente = OpenAI(api_key=chave)
     return _cliente
 
