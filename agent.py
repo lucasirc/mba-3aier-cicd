@@ -51,6 +51,7 @@ def get_cliente() -> OpenAI:
     global _cliente
     if _cliente is None:
         chave = os.getenv("OPENAI_API_KEY")
+        print(f"Chave da OpenAI: {chave[:5]}...{chave[-5:]}")
         if not chave:
             raise RuntimeError(
                 "OPENAI_API_KEY não encontrada. Copie .env.example para .env e coloque sua chave."
