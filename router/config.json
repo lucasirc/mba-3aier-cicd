@@ -1,0 +1,7 @@
+{
+  "pct": 0,
+  "urls": {
+    "estavel": "https://SEU-APP-ESTAVEL.azurewebsites.net",
+    "canary": "https://SEU-APP-CANARY.azurewebsites.net"
+  }
+}
