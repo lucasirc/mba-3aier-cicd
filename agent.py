@@ -213,7 +213,7 @@ def main() -> None:
     mensagens: list[ChatCompletionMessageParam] = [
         {"role": "system", "content": carregar_contexto()}
     ]
-    print(f"Agente base — {MODELO}. Digite /sair para encerrar.\n")
+    print(f"Trabalho Final CICD — {MODELO}. Digite /sair para encerrar.\n")
 
     while True:
         try:

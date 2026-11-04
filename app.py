@@ -24,8 +24,8 @@ if not st_runtime_ativo():
     print("Para a versão de terminal, rode:  python agent.py\n")
     raise SystemExit(1)
 
-st.set_page_config(page_title="Agente base", page_icon="🤖")
-st.title("🤖 Agente base")
+st.set_page_config(page_title="Trabalho Final CICD", page_icon="🤖")
+st.title("🤖 Trabalho Final CICD")
 
 # A chave é checada aqui. get_cliente() é preguiçoso justamente para que
 # este arquivo possa mostrar um erro na tela em vez de uma stack trace.
