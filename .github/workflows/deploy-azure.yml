@@ -25,17 +25,42 @@ jobs:
           python -m pip install --upgrade pip
           pip install flake8 pytest
           if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
-      - name: Run Tests
+      - name: Check lint
         run: |
           # stop the build if there are Python syntax errors or undefined names
           flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
           # exit-zero treats all errors as warnings. The GitHub editor is 127 chars wide
           flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
+      - name: Test with pytest
+        run: pytest tests/ -v
+
+  build:
+    needs: tests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Empacotar código
+        run: |
+          mkdir -p dist
+          zip -r dist/agente.zip . \
+            -x ".git/*" \
+            -x ".github/*" \
+            -x ".venv/*" \
+            -x "**/__pycache__/*" \
+            -x ".env" \
+            -x "*.pyc"
+
+      - name: Publicar artefato
+        uses: actions/upload-artifact@v4
+        with:
+          name: agente-build
+          path: dist/agente.zip
   deploy:
     # Com DEPLOY_ESTRATEGIA=canary quem publica é o deploy-canary.yml.
     if: vars.DEPLOY_ESTRATEGIA != 'canary'
     runs-on: ubuntu-latest
-    needs: tests
+    needs: build
     steps:
       - uses: actions/checkout@v4
 
